@@ -295,6 +295,19 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Draws game Pause.
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 */
+	public void drawPause(final Screen screen) {
+		String titleString = "P A U S E";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
+	}
+
+	/**
 	 * Draws main menu.
 	 * 
 	 * @param screen
