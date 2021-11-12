@@ -157,6 +157,7 @@ public class GameScreen extends Screen {
 			pauseScreen.isRunning = !pauseScreen.isRunning;
 			if (pauseScreen.isRunning){
 				pauseScreen.setStartTime(System.currentTimeMillis());
+				this.logger.info("Screen is paused.");
 			}
 			while(esc){
 				esc = inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
@@ -167,6 +168,7 @@ public class GameScreen extends Screen {
 			}
 
 			if (!pauseScreen.isRunning){
+				this.logger.info("Screen is resumed.");
 				pauseScreen.applyPauseTime();
 			}
 		}
