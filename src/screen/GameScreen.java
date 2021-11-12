@@ -4,8 +4,12 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
 import engine.Cooldown;
 import engine.Core;
+import engine.Frame;
 import engine.GameSettings;
 import engine.GameState;
 import entity.Bullet;
@@ -70,6 +74,8 @@ public class GameScreen extends Screen {
 	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
+	
+	private static Frame frame;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -207,7 +213,13 @@ public class GameScreen extends Screen {
 
 		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
 			this.isRunning = false;
-
+		
+		if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)) {
+			JPanel panel = new JPanel();
+			JButton b = new JButton();
+			panel.add(b);
+			add(panel);
+		}
 	}
 
 	/**

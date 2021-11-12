@@ -4,6 +4,8 @@ import java.awt.Insets;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import javax.swing.JFrame;
+
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
@@ -15,7 +17,7 @@ import engine.InputManager;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public class Screen {
+public class Screen extends JFrame{
 	
 	/** Milliseconds until the screen accepts user input. */
 	private static final int INPUT_DELAY = 1000;
@@ -97,6 +99,9 @@ public class Screen {
 		}
 
 		return 0;
+	}
+	
+	protected void Pause() {
 	}
 
 	/**
