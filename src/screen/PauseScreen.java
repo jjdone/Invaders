@@ -1,5 +1,7 @@
 package screen;
 
+import engine.Cooldown;
+
 public class PauseScreen extends Screen{
     /** time that the game pause was started */
     private long startTime;
@@ -57,5 +59,8 @@ public class PauseScreen extends Screen{
      */
     public void setStartTime(long startTime) {
         this.startTime = startTime;
+    }
+    public void applyPauseTime(){
+        Cooldown.addPauseMilli(pauseTime);
     }
 }

@@ -3,6 +3,7 @@ package screen;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import engine.Cooldown;
 import engine.Core;
@@ -70,6 +71,10 @@ public class GameScreen extends Screen {
 	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
+	/** Pause panel */
+	private PauseScreen pauseScreen;
+	/** boolean of ESC event */
+	private boolean esc;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -101,6 +106,7 @@ public class GameScreen extends Screen {
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
+		pauseScreen = new PauseScreen(width, height, fps);
 	}
 
 	/**
@@ -146,8 +152,28 @@ public class GameScreen extends Screen {
 	 */
 	protected final void update() {
 		super.update();
+		esc = inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
+		if(esc && this.inputDelay.checkFinished()) {
+			pauseScreen.isRunning = !pauseScreen.isRunning;
+			if (pauseScreen.isRunning){
+				pauseScreen.setStartTime(System.currentTimeMillis());
+			}
+			while(esc){
+				esc = inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
+				try {
+					TimeUnit.MILLISECONDS.sleep(1000/this.fps);
+				} catch (InterruptedException e) {
+				}
+			}
 
-		if (this.inputDelay.checkFinished() && !this.levelFinished) {
+			if (!pauseScreen.isRunning){
+				pauseScreen.applyPauseTime();
+			}
+		}
+		if (pauseScreen.isRunning){
+			pauseScreen.update();
+		}
+		else if (this.inputDelay.checkFinished() && !this.levelFinished) {
 
 			if (!this.ship.isDestroyed()) {
 				boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT)
@@ -195,9 +221,11 @@ public class GameScreen extends Screen {
 			this.enemyShipFormation.shoot(this.bullets);
 		}
 
-		manageCollisions();
-		cleanBullets();
-		draw();
+		if (!pauseScreen.isRunning) {
+			manageCollisions();
+			cleanBullets();
+			draw();
+		}
 
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
 				&& !this.levelFinished) {
