@@ -559,4 +559,31 @@ public final class DrawManager {
 			drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
 					+ fontBigMetrics.getHeight() / 3);
 	}
+
+	/*
+	Draws a manual screen title.
+	Parmas : screen - screen to draw
+	 */
+	public void drawManualTitle(final Screen screen){
+		String highScoreString = "Manual";
+		String instructionsString = "Press Space to return";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString,
+				screen.getHeight() / 5);
+	}
+
+	/*
+	Draws a manual screen title.
+	Parmas : screen - screen to draw
+	 */
+	public void drawManual(final Screen screen){
+		String manualString = "manual string";
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, manualString, screen.getHeight()
+				/ 4 + fontRegularMetrics.getHeight() * 2);
+	}
 }
