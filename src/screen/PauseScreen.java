@@ -2,11 +2,15 @@ package screen;
 
 import engine.Cooldown;
 
+import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
+
 public class PauseScreen extends Screen{
     /** time that the game pause was started */
     private long startTime;
     /** how long the game was paused */
     private long pauseTime;
+
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -20,7 +24,7 @@ public class PauseScreen extends Screen{
     public PauseScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
         this.isRunning = false;
-        /** GameScreen's return code */
+        //GameScreen's return code
         this.returnCode = 2;
     }
 
@@ -52,6 +56,32 @@ public class PauseScreen extends Screen{
         drawManager.drawPause(this);
 
         drawManager.completeDrawing(this);
+    }
+
+    /**
+     * Check the ESC key was pressed and Initialize PauseScreen
+     */
+    public void checkPause(boolean countdown) {
+        //esc key listener
+        boolean esc = inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
+        if(esc && countdown) {
+            this.isRunning = !this.isRunning;
+            if (this.isRunning){
+                this.startTime = System.currentTimeMillis();
+                this.logger.info("Screen is paused.");
+            }
+            while(esc){
+                esc = inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1000/this.fps);
+                } catch (InterruptedException ignored) {
+                }
+            }
+            if (!this.isRunning){
+                this.logger.info("Screen is resumed.");
+                this.applyPauseTime();
+            }
+        }
     }
 
     /**
