@@ -291,11 +291,16 @@ public class GameScreen extends Screen {
 				}
 			} else {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
-					if (!enemyShip.isDestroyed()
+					if (enemyShip.getLife() <= 1
 							&& checkCollision(bullet, enemyShip)) {
 						this.score += enemyShip.getPointValue();
 						this.shipsDestroyed++;
 						this.enemyShipFormation.destroy(enemyShip);
+						recyclable.add(bullet);
+					}
+					else if (enemyShip.getLife() > 1
+							&& checkCollision(bullet, enemyShip)) {
+						enemyShip.spendLife();
 						recyclable.add(bullet);
 					}
 				if (this.enemyShipSpecial != null
