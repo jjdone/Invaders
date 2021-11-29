@@ -1,6 +1,7 @@
 package screen;
 
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -42,6 +43,10 @@ public class Screen {
 	protected boolean isRunning;
 	/** What kind of screen goes next. */
 	protected int returnCode;
+	
+	public static int key_R = KeyEvent.VK_RIGHT;
+	public static int key_L = KeyEvent.VK_LEFT;
+	protected int functionCode;
 
 	/**
 	 * Constructor, establishes the properties of the screen.

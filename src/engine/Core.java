@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -170,7 +171,7 @@ public final class Core {
 					break;
 				case 4:
 					currentScreen = new SettingScreen(width, height, FPS);
-					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + "setting screen at" + FPS + "fps.");
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " setting screen at " + FPS + " fps.");
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing high score screen.");
 					break;
@@ -179,7 +180,8 @@ public final class Core {
 			}
 
 		} while (returnCode != 0);
-
+		currentScreen.key_R = KeyEvent.VK_RIGHT;
+		currentScreen.key_L = KeyEvent.VK_LEFT;
 		fileHandler.flush();
 		fileHandler.close();
 		System.exit(0);

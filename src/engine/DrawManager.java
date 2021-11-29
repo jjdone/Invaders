@@ -567,22 +567,44 @@ public final class DrawManager {
 					+ fontBigMetrics.getHeight() / 3);
 	}
 	
-	public void drawSettingTitle(final Screen screen) {
+	public void drawSetting(final Screen screen) {
 		String settingString = "Setting";
-		String instructionString = "Press Space to return";
+		String instructionString = "Select funcion";
 		
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, settingString, screen.getHeight() / 8);
 
 		backBufferGraphics.setColor(Color.GRAY);
-		drawCenteredRegularString(screen, settingString,
+		drawCenteredRegularString(screen, instructionString,
 				screen.getHeight() / 5);
 	}
 	
-	public void drawSetting(final Screen screen) {
-		String setting = "Setting";
+	public void drawfunction(final Screen screen, final int option) {
+		String swhitchingKey = "Switching Key";
+		String rightString = "Right";
+		String leftString = "Left";
+		String ExitString = "Exit";
+		
 		backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, setting, screen.getHeight()
+		drawCenteredRegularString(screen, swhitchingKey, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 2);
+		if (option == 1)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, rightString,
+				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 4);
+		if (option == 2)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, leftString,
+				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 6);
+		if (option == 3)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, ExitString,
+				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 10);
 	}
 }
