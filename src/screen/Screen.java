@@ -4,8 +4,6 @@ import java.awt.Insets;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import javax.swing.JFrame;
-
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
@@ -13,12 +11,12 @@ import engine.InputManager;
 
 /**
  * Implements a generic screen.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
-public class Screen extends JFrame{
-	
+public class Screen {
+
 	/** Milliseconds until the screen accepts user input. */
 	private static final int INPUT_DELAY = 1000;
 
@@ -47,7 +45,7 @@ public class Screen extends JFrame{
 
 	/**
 	 * Constructor, establishes the properties of the screen.
-	 * 
+	 *
 	 * @param width
 	 *            Screen width.
 	 * @param height
@@ -77,7 +75,7 @@ public class Screen extends JFrame{
 
 	/**
 	 * Activates the screen.
-	 * 
+	 *
 	 * @return Next screen code.
 	 */
 	public int run() {
@@ -100,9 +98,6 @@ public class Screen extends JFrame{
 
 		return 0;
 	}
-	
-	protected void Pause() {
-	}
 
 	/**
 	 * Updates the elements on screen and checks for events.
@@ -112,7 +107,7 @@ public class Screen extends JFrame{
 
 	/**
 	 * Getter for screen width.
-	 * 
+	 *
 	 * @return Screen width.
 	 */
 	public final int getWidth() {
@@ -121,7 +116,7 @@ public class Screen extends JFrame{
 
 	/**
 	 * Getter for screen height.
-	 * 
+	 *
 	 * @return Screen height.
 	 */
 	public final int getHeight() {
