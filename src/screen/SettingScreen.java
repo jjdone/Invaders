@@ -1,9 +1,9 @@
 package screen;
 
-import java.awt.event.KeyEvent;
-
 import engine.Cooldown;
 import engine.Core;
+
+import java.awt.event.KeyEvent;
 
 public class SettingScreen extends Screen {
 	
@@ -33,7 +33,7 @@ public class SettingScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 		drawManager.drawSetting(this);
-		drawManager.drawfunction(this, this.functionCode);
+		drawManager.drawSelection(this, this.functionCode);
 		drawManager.completeDrawing(this);
 	}
 	
@@ -62,14 +62,17 @@ public class SettingScreen extends Screen {
 				
 		}
 	}
-	
+	/** next selection(아랫 방향)
+	 * */
 	private void nextFunction() {
 		if (this.functionCode == Exit)
 			this.functionCode = RightKey;
 		else
 			this.functionCode++;
 	}
-	
+
+	/** previous selection(윗 방향)
+	 * */
 	private void previousFunction() {
 		if (this.functionCode == RightKey)
 			this.functionCode = Exit;
@@ -78,11 +81,11 @@ public class SettingScreen extends Screen {
 	}
 	
 	private void SwitchingKey() {
-		if (this.functionCode == 1) {
+		if (this.functionCode == RightKey) {//
 			key_R = inputManager.getKeyCode();
 			this.logger.info("Right Key change " + key_R);
 		}
-		else if (this.functionCode == 2) {
+		else if (this.functionCode == LeftKey) {
 			key_L = inputManager.getKeyCode();
 			this.logger.info("Left Key change " + key_L);
 		}

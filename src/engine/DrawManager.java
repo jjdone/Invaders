@@ -1,20 +1,17 @@
 package engine;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
+import entity.Entity;
+import entity.Ship;
+import screen.Screen;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import screen.Screen;
-import entity.Entity;
-import entity.Ship;
 
 /**
  * Manages screen drawing.
@@ -579,12 +576,12 @@ public final class DrawManager {
 				screen.getHeight() / 5);
 	}
 	
-	public void drawfunction(final Screen screen, final int option) {
+	public void drawSelection(final Screen screen, final int option) {
 		String swhitchingKey = "Switching Key";
-		String rightString = "Right";
-		String leftString = "Left";
+		String rightString = "Move Right(current key:"+ KeyEvent.getKeyText(Screen.key_R)+")";
+		String leftString = "Move Left(current key:"+ KeyEvent.getKeyText(Screen.key_L)+")";
 		String ExitString = "Exit";
-		
+
 		backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, swhitchingKey, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 2);
