@@ -12,6 +12,10 @@ public class SettingScreen extends Screen {
 	private static final int RightKey = 1;
 	private static final int LeftKey = 2;
 	private static final int Exit = 3;
+	/**Represent current selection in setting screen*/
+	private static int functionCode;
+	/**Represent if the setting Screen is ready to accept new key input*/
+	private static boolean functionCode2;
 	
 	private Cooldown selectionCooldown;
 
@@ -22,6 +26,7 @@ public class SettingScreen extends Screen {
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
 		this.functionCode = 1;
+		this.functionCode2 = false;
 	}
 
 	public final int run() {
@@ -33,7 +38,7 @@ public class SettingScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 		drawManager.drawSetting(this);
-		drawManager.drawSelection(this, this.functionCode);
+		drawManager.drawSelection(this, this.functionCode, this.functionCode2);
 		drawManager.completeDrawing(this);
 	}
 	
@@ -41,24 +46,23 @@ public class SettingScreen extends Screen {
 		super.update();
 		
 		draw();
-		if (this.selectionCooldown.checkFinished()
-				&& this.inputDelay.checkFinished()) {
-			if (inputManager.isKeyDown(KeyEvent.VK_UP)
+		if (this.selectionCooldown.checkFinished() && this.inputDelay.checkFinished()) {
+			int userInput = inputManager.getKeyCode();
+			if (userInput == KeyEvent.VK_SPACE || this.functionCode2 == true)
+				SwitchingKey(userInput);
+			else if (userInput == KeyEvent.VK_SPACE && this.functionCode == Exit)
+				this.isRunning = false;
+			else if (userInput == KeyEvent.VK_UP
 					|| inputManager.isKeyDown(KeyEvent.VK_W)) {
 				previousFunction();
 				this.selectionCooldown.reset();
 			}
-			if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
+			else if (userInput == KeyEvent.VK_DOWN
 					|| inputManager.isKeyDown(KeyEvent.VK_S)) {
 				nextFunction();
 				this.selectionCooldown.reset();
 			}
-			if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && this.functionCode == RightKey)
-				SwitchingKey();
-			else if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && this.functionCode == LeftKey)
-				SwitchingKey();
-			else if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && this.functionCode == Exit)
-				this.isRunning = false;
+
 				
 		}
 	}
@@ -80,14 +84,27 @@ public class SettingScreen extends Screen {
 			this.functionCode--;
 	}
 	
-	private void SwitchingKey() {
-		if (this.functionCode == RightKey) {//
-			key_R = inputManager.getKeyCode();
-			this.logger.info("Right Key change " + key_R);
+	private void SwitchingKey(int userInput) {
+		if (this.functionCode2 == false) {
+			this.functionCode2 = true;
+			this.selectionCooldown.reset();
 		}
-		else if (this.functionCode == LeftKey) {
-			key_L = inputManager.getKeyCode();
-			this.logger.info("Left Key change " + key_L);
+		if (this.selectionCooldown.checkFinished()) {//functionCOde 2 is true and cooldown is finished
+			if (this.functionCode == RightKey) {//
+				if (userInput != 0) {
+					key_R = userInput;
+					this.logger.info("Right Key change " + key_R);
+					this.functionCode2 = false;
+					this.selectionCooldown.reset();
+				}
+			} else if (this.functionCode == LeftKey) {
+				if (userInput != 0) {
+					key_L = userInput;
+					this.logger.info("Right Key change " + key_L);
+					this.functionCode2 = false;
+					this.selectionCooldown.reset();
+				}
+			}
 		}
 	}
 }

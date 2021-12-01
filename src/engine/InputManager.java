@@ -63,8 +63,6 @@ public final class InputManager implements KeyListener {
 	public void keyPressed(final KeyEvent key) {
 		if (key.getKeyCode() >= 0 && key.getKeyCode() < NUM_KEYS)
 			keys[key.getKeyCode()] = true;
-		if(key.getKeyCode() != KeyEvent.VK_SPACE && key.getKeyCode() != KeyEvent.VK_UP && 
-				key.getKeyCode() != KeyEvent.VK_DOWN)
 			keycode = key.getKeyCode();
 	}
 
@@ -78,6 +76,7 @@ public final class InputManager implements KeyListener {
 	public void keyReleased(final KeyEvent key) {
 		if (key.getKeyCode() >= 0 && key.getKeyCode() < NUM_KEYS)
 			keys[key.getKeyCode()] = false;
+			keycode = -0;
 	}
 
 	/**

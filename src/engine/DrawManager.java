@@ -575,29 +575,37 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, instructionString,
 				screen.getHeight() / 5);
 	}
-	
-	public void drawSelection(final Screen screen, final int option) {
-		String swhitchingKey = "Switching Key";
+
+	public void drawSelection(final Screen screen,  int currentSelection, boolean isKeyMode) {
+		String switchingKey = "Switching Key";
 		String rightString = "Move Right(current key:"+ KeyEvent.getKeyText(Screen.key_R)+")";
+		String ReadyToAccept = "Press Key you want change to";
 		String leftString = "Move Left(current key:"+ KeyEvent.getKeyText(Screen.key_L)+")";
 		String ExitString = "Exit";
 
 		backBufferGraphics.setColor(Color.WHITE);
-		drawCenteredRegularString(screen, swhitchingKey, screen.getHeight()
+		drawCenteredRegularString(screen, switchingKey, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 2);
-		if (option == 1)
+
+		if (currentSelection == 1) {
 			backBufferGraphics.setColor(Color.GREEN);
+			if (isKeyMode == true) rightString = ReadyToAccept;
+		}
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, rightString,
 				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 4);
-		if (option == 2)
+
+		if (currentSelection == 2) {
 			backBufferGraphics.setColor(Color.GREEN);
+			if (isKeyMode == true) leftString = ReadyToAccept;
+		}
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, leftString,
 				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 6);
-		if (option == 3)
+
+		if (currentSelection == 3)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
