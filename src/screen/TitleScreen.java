@@ -1,9 +1,14 @@
 package screen;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.SoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Implements the title screen.
@@ -56,6 +61,8 @@ public class TitleScreen extends Screen {
 		super.update();
 
 		draw();
+		sound();
+
 		if (this.selectionCooldown.checkFinished()
 				&& this.inputDelay.checkFinished()) {
 			if (inputManager.isKeyDown(KeyEvent.VK_UP)
@@ -82,6 +89,8 @@ public class TitleScreen extends Screen {
 		else if (this.returnCode == 0)
 			this.returnCode = 2;
 		else if (this.returnCode == 4)
+			this.returnCode = 5;
+		else if (this.returnCode == 5)
 			this.returnCode = 0;
 		else
 			this.returnCode++;
@@ -92,11 +101,13 @@ public class TitleScreen extends Screen {
 	 */
 	private void previousMenuItem() {
 		if (this.returnCode == 0)
-			this.returnCode = 4;
+			this.returnCode = 5;
 		else if (this.returnCode == 2)
 			this.returnCode = 0;
 		else if (this.returnCode == 4)
 			this.returnCode = 3;
+		else if (this.returnCode == 5)
+			this.returnCode = 4;
 		else
 			this.returnCode--;
 	}
@@ -112,4 +123,26 @@ public class TitleScreen extends Screen {
 
 		drawManager.completeDrawing(this);
 	}
+
+	private void sound()
+	{
+		if(this.ismusic){
+			int i;
+			for(i=0;i<1;i++){
+				SoundPlayer music;
+				try{
+					music = new SoundPlayer("/ysw/Desktop/Invaders_test/res/menues.wav");
+					music.play();
+				} catch (UnsupportedAudioFileException e) {
+					e.printStackTrace();
+				} catch (LineUnavailableException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			ismusic = false;
+		}
+	}
+
 }

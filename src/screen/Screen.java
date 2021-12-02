@@ -1,6 +1,7 @@
 package screen;
 
 import java.awt.Insets;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -8,6 +9,10 @@ import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
 import engine.InputManager;
+import engine.SoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Implements a generic screen.
@@ -27,6 +32,8 @@ public class Screen {
 	/** Application logger. */
 	protected Logger logger;
 
+	protected SoundPlayer soundPlayer;
+
 	/** Screen width. */
 	protected int width;
 	/** Screen height. */
@@ -40,6 +47,7 @@ public class Screen {
 
 	/** If the screen is running. */
 	protected boolean isRunning;
+	protected boolean ismusic;
 	/** What kind of screen goes next. */
 	protected int returnCode;
 
@@ -102,7 +110,7 @@ public class Screen {
 	/**
 	 * Updates the elements on screen and checks for events.
 	 */
-	protected void update() {
+	protected void update()  {
 	}
 
 	/**
