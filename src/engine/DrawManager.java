@@ -581,6 +581,7 @@ public final class DrawManager {
 		String rightString = "Move Right(current key:"+ KeyEvent.getKeyText(Screen.key_R)+")";
 		String ReadyToAccept = "Press Key you want change to";
 		String leftString = "Move Left(current key:"+ KeyEvent.getKeyText(Screen.key_L)+")";
+		String shootString = "Fire Weapon(current key:"+ KeyEvent.getKeyText(Screen.key_Shoot)+")";
 		String ExitString = "Exit";
 
 		backBufferGraphics.setColor(Color.WHITE);
@@ -605,7 +606,16 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, leftString,
 				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 6);
 
-		if (currentSelection == 3)
+		if (currentSelection == 3) {
+			backBufferGraphics.setColor(Color.GREEN);
+			if (isKeyMode == true) shootString = ReadyToAccept;
+		}
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, shootString,
+				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 8);
+
+		if (currentSelection == 4)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);

@@ -11,7 +11,8 @@ public class SettingScreen extends Screen {
 	
 	private static final int RightKey = 1;
 	private static final int LeftKey = 2;
-	private static final int Exit = 3;
+	private static final int ShootKey = 3;
+	private static final int Exit = 4;
 	/**Represent current selection in setting screen*/
 	private static int functionCode;
 	/**Represent if the setting Screen is ready to accept new key input*/
@@ -70,7 +71,7 @@ public class SettingScreen extends Screen {
 	 * */
 	private void nextFunction() {
 		if (this.functionCode == Exit)
-			this.functionCode = RightKey;
+			this.functionCode = ShootKey;
 		else
 			this.functionCode++;
 	}
@@ -93,14 +94,21 @@ public class SettingScreen extends Screen {
 			if (this.functionCode == RightKey) {//
 				if (userInput != 0) {
 					key_R = userInput;
-					this.logger.info("Right Key change " + key_R);
+					this.logger.info("Right Key has been changed to " + key_R);
 					this.functionCode2 = false;
 					this.selectionCooldown.reset();
 				}
 			} else if (this.functionCode == LeftKey) {
 				if (userInput != 0) {
 					key_L = userInput;
-					this.logger.info("Right Key change " + key_L);
+					this.logger.info("Right Key has been changed to " + key_L);
+					this.functionCode2 = false;
+					this.selectionCooldown.reset();
+				}
+			} else if (this.functionCode == ShootKey) {
+				if (userInput != 0) {
+					key_Shoot = userInput;
+					this.logger.info("Shoot Key has been changed to " + key_L);
 					this.functionCode2 = false;
 					this.selectionCooldown.reset();
 				}
