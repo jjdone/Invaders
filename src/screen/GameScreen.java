@@ -295,6 +295,10 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (enemyShip.getLife() <= 1
 							&& checkCollision(bullet, enemyShip)) {
+						// boss log
+						if (enemyShip.getIsBoss()) {
+							this.logger.info("Boss destroyed!");
+						}
 						this.score += enemyShip.getPointValue();
 						this.shipsDestroyed++;
 						this.bulletsHit++;
