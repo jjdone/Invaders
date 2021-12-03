@@ -77,12 +77,11 @@ public class TitleScreen extends Screen {
 	 * Shifts the focus to the next menu item.
 	 */
 	private void nextMenuItem() {
-		if (this.returnCode == 3)
-			this.returnCode = 4;
+
+		if (this.returnCode == 5)
+			this.returnCode = 0;
 		else if (this.returnCode == 0)
 			this.returnCode = 2;
-		else if (this.returnCode == 4)
-			this.returnCode = 0;
 		else
 			this.returnCode++;
 	}
@@ -92,11 +91,9 @@ public class TitleScreen extends Screen {
 	 */
 	private void previousMenuItem() {
 		if (this.returnCode == 0)
-			this.returnCode = 4;
+			this.returnCode = 5;
 		else if (this.returnCode == 2)
 			this.returnCode = 0;
-		else if (this.returnCode == 4)
-			this.returnCode = 3;
 		else
 			this.returnCode--;
 	}

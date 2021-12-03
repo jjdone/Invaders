@@ -1,20 +1,17 @@
 package engine;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
+import entity.Entity;
+import entity.Ship;
+import screen.Screen;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import screen.Screen;
-import entity.Entity;
-import entity.Ship;
 
 /**
  * Manages screen drawing.
@@ -325,6 +322,7 @@ public final class DrawManager {
 		String playString = "Play";
 		String highScoresString = "High scores";
 		String exitString = "exit";
+		String setting = "setting";
 		String manualString = "Manual";
 
 		if (option == 2)
@@ -339,19 +337,24 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
-		if (option == 4)
+		if (option == 5)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, manualString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+				* 2 + fontRegularMetrics.getHeight() * 6);
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 6);
-
+				* 2 + fontRegularMetrics.getHeight() * 8);
+		if (option == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, setting, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 4);
 	}
 
 	/**
@@ -586,6 +589,65 @@ public final class DrawManager {
 			drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
 					+ fontBigMetrics.getHeight() / 3);
 	}
+	
+	public void drawSetting(final Screen screen) {
+		String settingString = "Setting";
+		String instructionString = "Select funcion";
+		
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, settingString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionString,
+				screen.getHeight() / 5);
+	}
+
+	public void drawSelection(final Screen screen,  int currentSelection, boolean isKeyMode) {
+		String switchingKey = "Switching Key";
+		String rightString = "Move Right(current key:"+ KeyEvent.getKeyText(Screen.key_R)+")";
+		String ReadyToAccept = "Press Key you want change to";
+		String leftString = "Move Left(current key:"+ KeyEvent.getKeyText(Screen.key_L)+")";
+		String shootString = "Fire Weapon(current key:"+ KeyEvent.getKeyText(Screen.key_Shoot)+")";
+		String ExitString = "Exit";
+
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, switchingKey, screen.getHeight()
+				/ 4 + fontRegularMetrics.getHeight() * 2);
+
+		if (currentSelection == 1) {
+			backBufferGraphics.setColor(Color.GREEN);
+			if (isKeyMode == true) rightString = ReadyToAccept;
+		}
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, rightString,
+				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 4);
+
+		if (currentSelection == 2) {
+			backBufferGraphics.setColor(Color.GREEN);
+			if (isKeyMode == true) leftString = ReadyToAccept;
+		}
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, leftString,
+				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 6);
+
+		if (currentSelection == 3) {
+			backBufferGraphics.setColor(Color.GREEN);
+			if (isKeyMode == true) shootString = ReadyToAccept;
+		}
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, shootString,
+				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 8);
+
+		if (currentSelection == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, ExitString,
+				screen.getHeight()/ 4 + fontRegularMetrics.getHeight() * 10);
+  }
 
 	/*
 	Draws a manual screen title.

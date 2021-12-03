@@ -1,22 +1,23 @@
 package screen;
 
-import java.awt.Insets;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
-
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
 import engine.InputManager;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+
 /**
  * Implements a generic screen.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public class Screen {
-	
+
 	/** Milliseconds until the screen accepts user input. */
 	private static final int INPUT_DELAY = 1000;
 
@@ -42,10 +43,15 @@ public class Screen {
 	protected boolean isRunning;
 	/** What kind of screen goes next. */
 	protected int returnCode;
+	
+	public static int key_R = KeyEvent.VK_RIGHT;
+	public static int key_L = KeyEvent.VK_LEFT;
+	public static int key_Shoot = KeyEvent.VK_SPACE;
+	protected int functionCode;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
-	 * 
+	 *
 	 * @param width
 	 *            Screen width.
 	 * @param height
@@ -75,7 +81,7 @@ public class Screen {
 
 	/**
 	 * Activates the screen.
-	 * 
+	 *
 	 * @return Next screen code.
 	 */
 	public int run() {
@@ -107,7 +113,7 @@ public class Screen {
 
 	/**
 	 * Getter for screen width.
-	 * 
+	 *
 	 * @return Screen width.
 	 */
 	public final int getWidth() {
@@ -116,7 +122,7 @@ public class Screen {
 
 	/**
 	 * Getter for screen height.
-	 * 
+	 *
 	 * @return Screen height.
 	 */
 	public final int getHeight() {
