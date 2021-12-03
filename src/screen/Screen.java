@@ -8,6 +8,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
 import engine.InputManager;
+import engine.SoundPlayer;
 
 /**
  * Implements a generic screen.
@@ -40,8 +41,13 @@ public class Screen {
 
 	/** If the screen is running. */
 	protected boolean isRunning;
+	
+	protected boolean ismusic;
+	
 	/** What kind of screen goes next. */
 	protected int returnCode;
+	
+	protected SoundPlayer music;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -80,7 +86,7 @@ public class Screen {
 	 */
 	public int run() {
 		this.isRunning = true;
-
+		this.ismusic = false;
 		while (this.isRunning) {
 			long time = System.currentTimeMillis();
 

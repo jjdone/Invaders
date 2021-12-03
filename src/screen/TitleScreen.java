@@ -1,9 +1,14 @@
 package screen;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.SoundPlayer;
 
 /**
  * Implements the title screen.
@@ -18,6 +23,7 @@ public class TitleScreen extends Screen {
 	
 	/** Time between changes in user selection. */
 	private Cooldown selectionCooldown;
+	
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -34,6 +40,13 @@ public class TitleScreen extends Screen {
 
 		// Defaults to play.
 		this.returnCode = 2;
+		this.ismusic = true;
+		try {
+			sound();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
 	}
@@ -54,7 +67,7 @@ public class TitleScreen extends Screen {
 	 */
 	protected final void update() {
 		super.update();
-
+		
 		draw();
 		if (this.selectionCooldown.checkFinished()
 				&& this.inputDelay.checkFinished()) {
@@ -68,8 +81,15 @@ public class TitleScreen extends Screen {
 				nextMenuItem();
 				this.selectionCooldown.reset();
 			}
-			if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+			if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+				try {
+					sound();
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				this.isRunning = false;
+			}
 		}
 	}
 
@@ -107,5 +127,18 @@ public class TitleScreen extends Screen {
 		drawManager.drawMenu(this, this.returnCode);
 
 		drawManager.completeDrawing(this);
+	}
+	
+	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		if(this.ismusic) {
+			music = new SoundPlayer("/Users/ysw/Invaders/res/menues.wav");
+			music.play();
+			logger.info("Start Music");
+		}
+		else if(!this.ismusic) {
+			music.stop();
+			logger.info("End Music");
+		}
+		this.ismusic = false;
 	}
 }

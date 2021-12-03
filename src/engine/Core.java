@@ -174,6 +174,7 @@ public final class Core {
 				break;
 			default:
 				break;
+				
 			}
 
 		} while (returnCode != 0);
@@ -225,6 +226,8 @@ public final class Core {
 	public static FileManager getFileManager() {
 		return FileManager.getInstance();
 	}
+
+
 
 	/**
 	 * Controls creation of new cooldowns.
