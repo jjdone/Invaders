@@ -1,14 +1,13 @@
 package screen;
 
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import engine.Cooldown;
 import engine.Core;
 import engine.SoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 /**
  * Implements the title screen.
@@ -131,7 +130,7 @@ public class TitleScreen extends Screen {
 	
 	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		if(this.ismusic) {
-			music = new SoundPlayer("/Users/ysw/Invaders/res/menues.wav");
+			music = new SoundPlayer("menues.wav");
 			music.play();
 			logger.info("Start Music");
 		}
