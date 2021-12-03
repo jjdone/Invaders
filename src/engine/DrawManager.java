@@ -319,6 +319,7 @@ public final class DrawManager {
 		String playString = "Play";
 		String highScoresString = "High scores";
 		String exitString = "exit";
+		String manualString = "Manual";
 
 		if (option == 2)
 			backBufferGraphics.setColor(Color.GREEN);
@@ -332,12 +333,19 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, manualString, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 4);
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+				* 2 + fontRegularMetrics.getHeight() * 6);
+
 	}
 
 	/**
@@ -571,5 +579,32 @@ public final class DrawManager {
 		else
 			drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
 					+ fontBigMetrics.getHeight() / 3);
+	}
+
+	/*
+	Draws a manual screen title.
+	Parmas : screen - screen to draw
+	 */
+	public void drawManualTitle(final Screen screen){
+		String highScoreString = "Manual";
+		String instructionsString = "Press Space to return";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString,
+				screen.getHeight() / 5);
+	}
+
+	/*
+	Draws a manual screen title.
+	Parmas : screen - screen to draw
+	 */
+	public void drawManual(final Screen screen){
+		String manualString = "manual string";
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, manualString, screen.getHeight()
+				/ 4 + fontRegularMetrics.getHeight() * 2);
 	}
 }
