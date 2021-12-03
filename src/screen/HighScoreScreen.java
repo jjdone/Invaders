@@ -1,15 +1,14 @@
 package screen;
 
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.util.List;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import engine.Core;
 import engine.Score;
 import engine.SoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Implements the high scores screen, it shows player records.
@@ -96,7 +95,7 @@ public class HighScoreScreen extends Screen {
 	
 	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		if(this.ismusic) {
-			music = new SoundPlayer("/Users/ysw/Invaders/res/menues.wav");
+			music = new SoundPlayer("menues.wav");
 			music.play();
 			logger.info("Start Music");
 		}

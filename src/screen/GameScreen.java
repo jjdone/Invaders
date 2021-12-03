@@ -1,20 +1,14 @@
 package screen;
 
+import engine.*;
+import entity.*;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
-import engine.*;
-import entity.Bullet;
-import entity.BulletPool;
-import entity.EnemyShip;
-import entity.EnemyShipFormation;
-import entity.Entity;
-import entity.Ship;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Implements the game screen, where the action happens.
@@ -361,7 +355,7 @@ public class GameScreen extends Screen {
 	}
 	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		if(this.ismusic) {
-			music = new SoundPlayer("/Users/ysw/Invaders/res/inGame.wav");
+			music = new SoundPlayer("inGame.wav");
 			music.play();
 			logger.info("Start Music");
 		}

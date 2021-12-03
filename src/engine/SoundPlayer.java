@@ -1,14 +1,8 @@
 package engine;
 
-import java.io.File;
-import java.util.Scanner;
+import javax.sound.sampled.*;
 import java.io.IOException;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.InputStream;
 
 public class SoundPlayer {
 
@@ -27,11 +21,11 @@ public class SoundPlayer {
     public SoundPlayer(String music)
             throws UnsupportedAudioFileException,
             IOException, LineUnavailableException {
+        InputStream inputStream = null;
+        inputStream = FileManager.class.getClassLoader().getResourceAsStream(music);
         // the input stream object
         audioStream =
-                AudioSystem.getAudioInputStream(
-                        new File(music)
-                                .getAbsoluteFile());
+                AudioSystem.getAudioInputStream(inputStream);
 
         // the reference to the clip
         clip = AudioSystem.getClip();
