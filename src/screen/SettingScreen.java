@@ -49,10 +49,13 @@ public class SettingScreen extends Screen {
 		draw();
 		if (this.selectionCooldown.checkFinished() && this.inputDelay.checkFinished()) {
 			int userInput = inputManager.getKeyCode();
-			if (userInput == KeyEvent.VK_SPACE || this.functionCode2 == true)
+			if (userInput == KeyEvent.VK_SPACE || this.functionCode2 == true) {
+				if (userInput == KeyEvent.VK_SPACE && this.functionCode == Exit) {
+					this.logger.info("false");
+					this.isRunning = false;
+				}
 				SwitchingKey(userInput);
-			else if (userInput == KeyEvent.VK_SPACE && this.functionCode == Exit)
-				this.isRunning = false;
+			}
 			else if (userInput == KeyEvent.VK_UP
 					|| inputManager.isKeyDown(KeyEvent.VK_W)) {
 				previousFunction();
