@@ -1,19 +1,20 @@
 package screen;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
+import engine.*;
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
 import entity.EnemyShipFormation;
 import entity.Entity;
 import entity.Ship;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Implements the game screen, where the action happens.
@@ -91,6 +92,18 @@ public class GameScreen extends Screen {
 			final GameSettings gameSettings, final boolean bonusLife,
 			final int width, final int height, final int fps) {
 		super(width, height, fps);
+
+		this.returnCode = 1;
+		this.ismusic = true;
+
+		try {
+			sound();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+
 
 		this.gameSettings = gameSettings;
 		this.bonusLife = bonusLife;
@@ -337,5 +350,17 @@ public class GameScreen extends Screen {
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.lives,
 				this.bulletsShot, this.shipsDestroyed);
+	}
+	private void sound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		if(this.ismusic) {
+			music = new SoundPlayer("/Users/ysw/Invaders/res/inGame.wav");
+			music.play();
+			logger.info("Start Music");
+		}
+		else if(!this.ismusic) {
+			music.stop();
+			logger.info("End Music");
+		}
+		this.ismusic = false;
 	}
 }
