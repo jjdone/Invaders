@@ -172,4 +172,6 @@ log*
 *.ttf
 .checkstyle
 
-.iml
+out/
+Invaders.iml
+.idea
