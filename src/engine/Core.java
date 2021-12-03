@@ -35,7 +35,7 @@ public final class Core {
 
 	/** Difficulty settings for level 1. */
 	private static final GameSettings SETTINGS_LEVEL_1 =
-			new GameSettings(5, 4, 60, 2000);
+			new GameSettings(1, 50);
 	/** Difficulty settings for level 2. */
 	private static final GameSettings SETTINGS_LEVEL_2 =
 			new GameSettings(5, 5, 50, 2500);
@@ -113,7 +113,7 @@ public final class Core {
 
 		int returnCode = 1;
 		do {
-			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+			gameState = new GameState(1, 0, MAX_LIVES, 0,0, 0);
 
 			switch (returnCode) {
 				case 1:
@@ -175,6 +175,14 @@ public final class Core {
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing high score screen.");
 					break;
+          
+          case 5:
+          currentScreen = new ManualScreen(width, height, FPS);
+          LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+              + " manual screen at " + FPS + " fps.");
+          returnCode = frame.setScreen(currentScreen);
+          LOGGER.info("Closing manual screen");
+          break;
 				default:
 					break;
 			}

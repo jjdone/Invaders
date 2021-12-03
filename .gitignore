@@ -15,6 +15,8 @@ local.properties
 .classpath
 .settings/
 .loadpath
+out/
+.idea
 
 # External tool builders
 .externalToolBuilders/
@@ -169,26 +171,8 @@ pip-log.txt
 log*
 *.ttf
 .checkstyle
-/.gradle/
-/.idea/
-/app/
-/bin/
-/build/
-/gradle/
-/out/
-/Tests/
-/Tests/entity/
-/Tests/screen/
-/untitled/
-/.gitattributes
-/.gitignore
-/gradlew
-/gradlew.bat
-/Invaders.iml
-/Invaders-TEAM11.iml
-/log
-/README.md
-/scores
-/settings.gradle
-/.idea/
-/.idea/
+
+out/
+Invaders.iml
+.idea
+

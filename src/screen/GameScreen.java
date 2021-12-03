@@ -56,6 +56,8 @@ public class GameScreen extends Screen {
 	private int lives;
 	/** Total bullets shot by the player. */
 	private int bulletsShot;
+	/**bullets player hit the enemy**/
+	private int bulletsHit;
 	/** Total ships destroyed by the player. */
 	private int shipsDestroyed;
 	/** Moment the game starts. */
@@ -64,6 +66,8 @@ public class GameScreen extends Screen {
 	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
+	/** Pause panel */
+	private PauseScreen pauseScreen;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -72,7 +76,7 @@ public class GameScreen extends Screen {
 	 *            Current game state.
 	 * @param gameSettings
 	 *            Current game settings.
-	 * @param bonnusLife
+	 * @param bonusLife
 	 *            Checks if a bonus life is awarded this level.
 	 * @param width
 	 *            Screen width.
@@ -95,6 +99,7 @@ public class GameScreen extends Screen {
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
+		pauseScreen = new PauseScreen(width, height, fps);
 	}
 
 	/**
@@ -140,8 +145,11 @@ public class GameScreen extends Screen {
 	 */
 	protected final void update() {
 		super.update();
-
-		if (this.inputDelay.checkFinished() && !this.levelFinished) {
+		pauseScreen.checkPause(inputDelay.checkFinished());
+		if (pauseScreen.isRunning){
+			pauseScreen.update();
+		}
+		else if (this.inputDelay.checkFinished() && !this.levelFinished) {
 
 			if (!this.ship.isDestroyed()) {
 				boolean moveRight = inputManager.isKeyDown(key_R);
@@ -187,9 +195,11 @@ public class GameScreen extends Screen {
 			this.enemyShipFormation.shoot(this.bullets);
 		}
 
-		manageCollisions();
-		cleanBullets();
-		draw();
+		if (!pauseScreen.isRunning) {
+			manageCollisions();
+			cleanBullets();
+			draw();
+		}
 
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
 				&& !this.levelFinished) {
@@ -274,11 +284,22 @@ public class GameScreen extends Screen {
 				}
 			} else {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
-					if (!enemyShip.isDestroyed()
+					if (enemyShip.getLife() <= 1
 							&& checkCollision(bullet, enemyShip)) {
+						// boss log
+						if (enemyShip.getIsBoss()) {
+							this.logger.info("Boss destroyed!");
+						}
 						this.score += enemyShip.getPointValue();
 						this.shipsDestroyed++;
+						this.bulletsHit++;
 						this.enemyShipFormation.destroy(enemyShip);
+						recyclable.add(bullet);
+					}
+					else if (enemyShip.getLife() > 1
+							&& checkCollision(bullet, enemyShip)) {
+						enemyShip.spendLife();
+						this.bulletsHit++;
 						recyclable.add(bullet);
 					}
 				if (this.enemyShipSpecial != null
@@ -286,6 +307,7 @@ public class GameScreen extends Screen {
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
 					this.score += this.enemyShipSpecial.getPointValue();
 					this.shipsDestroyed++;
+					this.bulletsHit++;
 					this.enemyShipSpecial.destroy();
 					this.enemyShipSpecialExplosionCooldown.reset();
 					recyclable.add(bullet);
@@ -327,6 +349,6 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.lives,
-				this.bulletsShot, this.shipsDestroyed);
+				this.bulletsShot, this.bulletsHit, this.shipsDestroyed);
 	}
 }
